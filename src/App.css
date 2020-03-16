@@ -41,7 +41,8 @@
 
 /* Global Styles */
 :root {
-  --primary-color: #ec119800;
+  --primary-color: #dc3545;
+  /* --primary-color: #f10d65f6; */
   --dark-color: #333333;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
