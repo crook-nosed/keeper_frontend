@@ -11,7 +11,7 @@ const Lister = (props) => {
         return (
             <div style={listStyle}>
                 {props.taskLists.map(taskList => (
-                    <TaskListItem key={taskList.id} taskList={taskList} deleteItem={props.deleteItem} id={taskList.id}/>
+                    <TaskListItem key={taskList.id} taskList={taskList} deleteItem={props.deleteItem} id={taskList.id} returnId={props.returnId}/>
                 ))}
             </div>
         )

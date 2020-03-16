@@ -26,7 +26,7 @@ export class CreateList extends Component {
         return (
             <div>
                 <form onSubmit={this.onSubmit} className="form">
-                    <input type="text" name="text" placeholder="Create New TaskList..." value={this.state.text} onChange={this.onChange}/>
+                    <input type="text" name="text" placeholder="Create New Task or TaskList..." value={this.state.text} onChange={this.onChange}/>
                     <input type="submit" value="Enter" className="btn btn-dark btn-block"/>
 
                 </form>

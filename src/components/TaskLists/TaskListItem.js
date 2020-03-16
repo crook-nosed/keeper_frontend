@@ -11,10 +11,10 @@ const TaskListItem = props => {
                 </div>
 
                 <div>
-                    <Link to={`/taskList/${id}`} className="btn btn-dark btn-sm my-1"> Add Tasks</Link>
+                    <button onClick={()=>props.returnId(id)} className="btn btn-dark btn-sm my-1"><Link to={`/taskList/${id}`} > Add Tasks</Link></button>
                 </div>
                 <div>
-                    <button onClick={() => props.deleteItem(id)} href="http://google.com" className="btn btn-dark btn-sm my-1"> Delete</button>
+                    <button onClick={() => props.deleteItem(id)} className="btn btn-dark btn-sm my-1"> Delete</button>
                 </div>
             </div>
         )

@@ -14,12 +14,16 @@ class App extends Component {
 
   state = {
     taskLists:[],
+    tasks:[],
     loading:false,
-    alert:null
+    alert:null,
+    taskId:null
+
   }
 
   async componentDidMount(){
    this.fetchTaskLists();
+   this.fetchTasks()
   }
 
   fetchTaskLists = async () => {
@@ -30,13 +34,32 @@ class App extends Component {
     
     this.setState({taskLists: res.data, loading:false});
   }
+  fetchTasks = async () => {
+    this.setState({loading:true})
+     const res = await axios.get('http://localhost:8000/api/tasks');
+ 
+     const returnedTasks = res.data;
+
+     const relevantData = returnedTasks.filter(task=> task.taskList === this.state.taskId)
+     console.log(relevantData);
+     this.setState({tasks: relevantData,loading:false});
+   }
   createNewTaskList = async (text) => {
-    const newTask = {
+    const newTaskList = {
       "task_list_name": text
     }
-    const res = await axios.post('http://localhost:8000/api/task-list-create/', newTask);
+    const res = await axios.post('http://localhost:8000/api/task-list-create/', newTaskList);
     console.log(res.data);
     this.fetchTaskLists();
+  }
+  createNewTask = async (text, id) => {
+    const newTask = {
+      "task_name": text,
+      "taskList":id
+    }
+    const res = await axios.post('http://localhost:8000/api/task-create/', newTask);
+    console.log(res.data);
+    this.fetchTasks();
   }
 
   setAlert = (msg, type) => {
@@ -51,7 +74,16 @@ class App extends Component {
     console.log(res.data);
     this.fetchTaskLists();
   }
+  deleteTaskItem = async (id) => {
+    const res = await axios.delete(`http://localhost:8000/api/task-delete/${id}`);
+    console.log(res.data);
+    this.fetchTasks();
+  }
+  returnId= (id) => {
+    this.setState({taskId:id})
+  }
   render(){
+    // const id = 
     return (
       <Router>
       <div className="App">
@@ -63,12 +95,16 @@ class App extends Component {
             props => (
               <Fragment>
                 <CreateList createNewTaskList={this.createNewTaskList} setAlert={this.setAlert} />
-                <Lister loading={this.state.loading} taskLists={this.state.taskLists} deleteItem={this.deleteItem}/>
+                <Lister loading={this.state.loading} taskLists={this.state.taskLists} deleteItem={this.deleteItem} returnId={this.returnId}/>
               </Fragment>
             )
           }/> 
           <Route exact path="/about" component={About} />
-          <Route exact path="/about" component={TaskDetailPage} />
+          <Route exact path={`/tasklist/${this.state.taskId}`} render={
+            props => (
+              <TaskDetailPage timestamp={new Date().toString()} {...props} fetchTasks={this.fetchTasks} taskId={this.state.taskId} tasks={this.state.tasks} loading={this.state.loading} createNewTask={this.createNewTask} deleteTaskItem={this.deleteTaskItem}/>
+            )
+          } />
           {/* <Route exact path="/taskList" render = {
             props=> (
               <Fragment>
