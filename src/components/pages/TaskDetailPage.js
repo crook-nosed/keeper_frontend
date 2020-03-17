@@ -80,6 +80,7 @@
 // export default TaskDetailPage
 
 import React, { Fragment,Component } from 'react';
+// import Spinner from '../layout/Spinner';
 // import CreateTask from '../TaskLists/CreateTask';
 
 
@@ -124,6 +125,7 @@ export class TaskDetailPage extends Component {
                     </form>
                 </div>
                 {/* <div className="card"> */}
+                <div className="container">
                 {tasks.map(task=>(
                    <div key={task.id} className="card" style={{display:"flex"}}>
                        <div style = {{flex:8}}>
@@ -138,6 +140,8 @@ export class TaskDetailPage extends Component {
                        
                     </div>
                 ))}
+
+                </div>
                 {/* </div> */}
                 {/* <h1>{tasks.map(task=>task.task_name)}</h1> */}
             </Fragment>
