@@ -64,8 +64,8 @@ class App extends Component {
     })
   } 
   registerUser = ({username,password,email}) => {
-    // this.setState({isUserLoading:true});
-    // const token = this.state.token;
+    this.setState({isUserLoading:true});
+    const token = this.state.token;
     const config = {
       headers: {
         'Content-Type':'application/json'

@@ -94,7 +94,7 @@ export class TaskDetailPage extends Component {
         e.preventDefault();
         if(this.state.text === '')
         {
-            this.props.setAlert("Please enter something" ,"light");
+            this.props.Alert("Please enter something" ,"light");
 
         } else {
             this.props.createNewTask(this.state.text,this.props.taskId);
